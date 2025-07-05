@@ -10,13 +10,13 @@ module.exports = class SitesDB {
   // Pass the connection string to `initialize()`
   initialize(connectionString) {
     return new Promise((resolve, reject) => {
-      const db = mongoose.createConnection(connectionString);
+      const db = mongoose.createConnection(connectionString,{dbName:"mtpaing"});
 
       db.once('error', (err) => {
         reject(err);
       });
       db.once('open', () => {
-        this.Site = db.model("site", siteSchema);
+        this.Site = db.model("site", siteSchema, "data-sites");
         resolve();
       });
     });
@@ -45,6 +45,7 @@ module.exports = class SitesDB {
 
     return Promise.reject(new Error('page and perPage query parameters must be valid numbers'));
   }
+  
 
   getSiteById(id) {
     return this.Site.findById(id).exec();

@@ -58,6 +58,7 @@ app.get("/api/sites", async (req, res) => {
     );
     res.json(sites);
   } catch (err) {
+    console.log(err)
     res.status(500).json({ error: "Failed to fetch sites" });
   }
 });
